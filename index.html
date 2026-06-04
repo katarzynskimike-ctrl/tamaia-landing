@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="TAMAIA — system kontroli jakości rozmów rejestracji stomatologicznej. MAIA słucha rozmów, mierzy realnie umówione wizyty, pokazuje gdzie tracisz pieniądze.">
+<meta name="theme-color" content="#1E40AF">
+<meta property="og:title" content="TAMAIA — Doskonała Rejestracja Stomatologiczna">
+<meta property="og:description" content="Wreszcie wiesz ile zarabiasz na każdej rozmowie. Bez integracji z kalendarzem.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tamaia.pl">
+<meta property="og:image" content="https://tamaia.pl/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>TAMAIA — Doskonała Rejestracja Stomatologiczna</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231E40AF'/%3E%3Cstop offset='1' stop-color='%23EC4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='50' y='66' font-family='Inter,sans-serif' font-size='46' font-weight='800' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#1E40AF; --brand-deep:#1E3A8A; --accent:#D97706; --pink:#EC4899;
+  --bg:#FFFFFF; --bg-soft:#F8FAFC; --bg-mint:#ECFDF5; --bg-amber:#FEF3C7; --bg-pink:#FDF2F8;
+  --fg:#0F172A; --fg-muted:#475569; --fg-subtle:#64748B;
+  --border:#E2E8F0; --success:#15803D; --warning:#B45309; --danger:#B91C1C;
+  --shadow-sm:0 1px 3px rgba(15,23,42,.06);
+  --shadow-md:0 8px 24px rgba(15,23,42,.08);
+  --shadow-lg:0 24px 64px rgba(15,23,42,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'Inter',ui-sans-serif,system-ui,sans-serif;color:var(--fg);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+section{padding:96px 32px;max-width:1200px;margin:0 auto}
+@media (max-width:768px){section{padding:64px 20px}}
+
+/* TOP NAV */
+nav.topnav{position:sticky;top:0;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:50}
+.topnav-inner{max-width:1200px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;text-decoration:none;color:var(--fg)}
+.logo-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--pink));display:flex;align-items:center;justify-content:center;color:#FFF;font-weight:800;font-size:18px}
+.logo small{display:block;font-size:11px;color:var(--fg-subtle);font-weight:400;letter-spacing:0.3px}
+.nav-links{display:flex;align-items:center;gap:14px}
+.nav-link{color:var(--fg-muted);text-decoration:none;font-size:14px;font-weight:500;padding:6px 12px;border-radius:6px;transition:all 150ms}
+.nav-link:hover{color:var(--brand);background:var(--bg-soft)}
+@media (max-width:600px){.nav-link:not(.nav-cta){display:none}}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#EFF6FF 0%,#FFFFFF 40%,#FDF2F8 100%);padding-bottom:120px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(124,92,255,.15),transparent 70%);pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;padding:64px 32px 0;position:relative;z-index:1}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#FFFFFFcc;border:1px solid var(--border);border-radius:999px;font-size:13px;color:var(--fg-muted);margin-bottom:24px;backdrop-filter:blur(8px);font-weight:500}
+.tag .dot{width:8px;height:8px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(36px,5vw,72px);font-weight:800;letter-spacing:-2px;line-height:1.05;max-width:900px;margin-bottom:24px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--brand),var(--pink));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.lead{font-size:clamp(18px,2vw,22px);color:var(--fg-muted);max-width:680px;margin-bottom:40px;line-height:1.55}
+.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;font-weight:600;font-size:16px;transition:transform 200ms,box-shadow 200ms;text-decoration:none;border:none;cursor:pointer;font-family:inherit}
+.btn-primary{background:var(--brand);color:#FFF;box-shadow:0 8px 24px rgba(30,64,175,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(30,64,175,.4)}
+.btn-ghost{background:#FFFFFF;color:var(--fg);border:1.5px solid var(--border)}
+.btn-ghost:hover{border-color:var(--brand)}
+.btn-sm{padding:8px 16px;font-size:14px;border-radius:8px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px;padding-top:32px;border-top:1px solid var(--border)}
+@media (max-width:768px){.hero-stats{grid-template-columns:1fr 1fr}}
+.hero-stats .stat .val{font-size:36px;font-weight:800;color:var(--brand);letter-spacing:-1px}
+.hero-stats .stat .lbl{font-size:13px;color:var(--fg-muted);margin-top:4px}
+
+/* SECTION HEADER */
+.s-head{text-align:center;max-width:720px;margin:0 auto 64px}
+.s-head .eyebrow{font-size:13px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+.s-head h2{font-size:clamp(28px,3.5vw,48px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:16px}
+.s-head h2 em{font-style:normal;background:linear-gradient(135deg,#7C3AED,#EC4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.s-head p{font-size:18px;color:var(--fg-muted)}
+
+/* PROBLEM */
+.problem{background:var(--bg-soft)}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:900px){.problem-grid{grid-template-columns:1fr}}
+.problem-card{background:#FFF;border:1px solid var(--border);border-radius:16px;padding:32px;position:relative}
+.problem-card .num{font-size:64px;font-weight:800;color:var(--bg-soft);position:absolute;top:8px;right:24px;line-height:1}
+.problem-card h3{font-size:20px;font-weight:700;margin-bottom:12px;color:var(--fg);position:relative}
+.problem-card p{color:var(--fg-muted);font-size:15px;position:relative}
+
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:900px){.features-grid{grid-template-columns:1fr}}
+.feature{background:#FFF;border:1px solid var(--border);border-radius:16px;padding:32px;transition:all 200ms}
+.feature:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--brand)}
+.feature .icon{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--brand),var(--pink));display:flex;align-items:center;justify-content:center;color:#FFF;font-size:24px;margin-bottom:20px}
+.feature h3{font-size:18px;font-weight:700;margin-bottom:10px}
+.feature p{color:var(--fg-muted);font-size:14.5px;line-height:1.65}
+.feature ul{list-style:none;margin-top:14px;font-size:13.5px;color:var(--fg-muted)}
+.feature ul li{padding:4px 0 4px 22px;position:relative}
+.feature ul li::before{content:'✓';position:absolute;left:0;top:4px;color:var(--success);font-weight:700}
+
+/* INSIGHT */
+.insight-bg{background:linear-gradient(180deg,#FFFFFF 0%,#FAF5FF 100%)}
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto}
+@media (max-width:900px){.insight-grid{grid-template-columns:1fr}}
+.insight-chart{background:#FFF;border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:var(--shadow-md)}
+.insight-chart .head{font-size:12px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:1px;margin-bottom:18px}
+.insight-bar{display:grid;grid-template-columns:140px 1fr 90px;gap:12px;align-items:center;padding:4px 0;font-size:14px}
+.insight-bar.highlight{background:var(--bg-amber);padding:6px 8px;margin:0 -8px;border-radius:6px}
+.insight-bar.highlight.bad{background:#FEE2E2}
+.insight-bar .bar-track{height:8px;background:#E0E7FF;border-radius:4px;position:relative}
+.insight-bar .bar-track > div{height:100%;background:var(--brand);border-radius:4px}
+.insight-bar.highlight .bar-track{background:#FDE68A}
+.insight-bar.highlight .bar-track > div{background:var(--accent)}
+.insight-bar.highlight.bad .bar-track{background:#FECACA}
+.insight-bar.highlight.bad .bar-track > div{background:var(--danger)}
+.insight-bar b{text-align:right;font-weight:600}
+.insight-list{display:flex;flex-direction:column;gap:18px}
+.insight-list .item{display:flex;gap:14px}
+.insight-list .item .icon-wrap{width:32px;height:32px;border-radius:50%;background:var(--bg-amber);color:var(--warning);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.insight-list .item.danger .icon-wrap{background:#FEE2E2;color:var(--danger)}
+.insight-list .item.success .icon-wrap{background:var(--bg-mint);color:var(--success)}
+.insight-list .item.brand .icon-wrap{background:#DBEAFE;color:var(--brand)}
+
+/* HOW */
+.how{background:linear-gradient(180deg,var(--bg-soft) 0%,#FFFFFF 100%)}
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+@media (max-width:900px){.how-steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.how-steps{grid-template-columns:1fr}}
+.step{position:relative;padding:32px 24px;background:#FFF;border-radius:16px;border:1px solid var(--border)}
+.step .step-num{position:absolute;top:-16px;left:24px;width:36px;height:36px;background:var(--brand);color:#FFF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;box-shadow:var(--shadow-md)}
+.step h4{font-size:16px;font-weight:700;margin:12px 0 8px}
+.step p{color:var(--fg-muted);font-size:14px}
+
+/* DEMO PREVIEW */
+.demo-block{background:#0F172A;color:#FFF;border-radius:24px;padding:48px;margin-top:48px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.demo-block::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(124,92,255,.3),transparent 70%)}
+.demo-inner{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media (max-width:900px){.demo-inner{grid-template-columns:1fr}}
+.demo-block h3{font-size:32px;font-weight:800;letter-spacing:-1px;margin-bottom:16px;color:#FFF}
+.demo-block p{color:#CBD5E1;font-size:16px;margin-bottom:24px}
+.kpi-preview{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;backdrop-filter:blur(8px)}
+.kpi-preview .row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:14px}
+.kpi-preview .row:last-child{border:none}
+.kpi-preview .val{font-weight:700;font-size:18px;color:#86EFAC}
+.kpi-preview .val.warn{color:#FCD34D}
+.kpi-preview .val.bad{color:#FCA5A5}
+.btn-white{background:#FFF;color:var(--brand);font-weight:700}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.2)}
+
+/* MAIA */
+.maia{background:linear-gradient(135deg,var(--bg-mint),var(--bg-pink))}
+.maia-content{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media (max-width:900px){.maia-content{grid-template-columns:1fr}}
+.maia-quote{background:#FFF;border-radius:20px;padding:36px;box-shadow:var(--shadow-md);border-left:6px solid var(--brand);font-size:20px;line-height:1.5;font-style:italic;color:var(--fg)}
+.maia-quote b{font-style:normal}
+.maia-list{display:flex;flex-direction:column;gap:16px}
+.maia-list .item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+.maia-list .item:last-child{border:none}
+.maia-list .ok,.maia-list .no{font-weight:800;font-size:14px;min-width:30px;flex-shrink:0;padding-top:2px}
+.maia-list .ok{color:var(--success)}
+.maia-list .no{color:var(--danger)}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto}
+@media (max-width:768px){.pricing-grid{grid-template-columns:1fr}}
+.price-card{background:#FFF;border:2px solid var(--border);border-radius:20px;padding:40px;position:relative}
+.price-card.featured{border-color:var(--brand);transform:scale(1.03);box-shadow:var(--shadow-lg)}
+.price-card .ribbon{position:absolute;top:-12px;right:24px;background:linear-gradient(135deg,var(--accent),#F59E0B);color:#FFF;padding:6px 16px;border-radius:999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.price-card h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.price-card .price{font-size:48px;font-weight:800;color:var(--brand);letter-spacing:-2px;margin:16px 0}
+.price-card .price span{font-size:16px;color:var(--fg-muted);font-weight:500}
+.price-card ul{list-style:none;margin:24px 0}
+.price-card ul li{padding:8px 0 8px 28px;position:relative;font-size:15px;color:var(--fg-muted)}
+.price-card ul li::before{content:'✓';position:absolute;left:0;top:8px;color:var(--success);font-weight:700;font-size:16px}
+.price-card .btn{width:100%;justify-content:center;margin-top:8px}
+
+/* CTA FINAL */
+.cta-final{background:linear-gradient(135deg,var(--brand),var(--brand-deep));color:#FFF;text-align:center;border-radius:24px;padding:80px 32px;max-width:1100px;margin:96px auto}
+.cta-final h2{font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1px;margin-bottom:16px;color:#FFF}
+.cta-final p{font-size:18px;opacity:.9;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
+
+/* FOOTER */
+footer{background:#0F172A;color:#94A3B8;padding:48px 32px 32px}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+@media (max-width:768px){.footer-inner{grid-template-columns:1fr 1fr}}
+footer h4{color:#FFF;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+footer ul li a{color:#94A3B8;text-decoration:none;font-size:14px}
+footer ul li a:hover{color:#FFF}
+.footer-bottom{max-width:1200px;margin:32px auto 0;padding-top:24px;border-top:1px solid #1E293B;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="/" class="logo">
+      <div class="logo-mark">T</div>
+      <div>TAMAIA<small>Doskonała Rejestracja</small></div>
+    </a>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">Funkcje</a>
+      <a href="#how" class="nav-link">Jak działa</a>
+      <a href="#pricing" class="nav-link">Cennik</a>
+      <a href="https://app.tamaia.pl/?demo=1" class="nav-link">Demo</a>
+      <a href="https://app.tamaia.pl/login" class="btn btn-primary btn-sm nav-cta">Zaloguj się →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="tag"><span class="dot"></span> 47+ klinik · 0 utraconych pacjentów na rejestracji</div>
+    <h1>Twoja rejestracja <em>traci pacjentów</em> — a Ty nawet o tym nie wiesz.</h1>
+    <p class="lead">MAIA słucha każdej rozmowy, mówi recepcjonistce co poprawić zanim Ty o tym usłyszysz, i co tydzień pokazuje Ci konkretne liczby — ile umówiono, ile uciekło na pytaniu o cenę, ile godzin straciłeś na nieoddzwonionych.</p>
+    <div class="cta-row">
+      <a href="https://app.tamaia.pl/?demo=1" class="btn btn-primary">Zobacz demo (2 min) →</a>
+      <a href="#kontakt" class="btn btn-ghost">Porozmawiajmy</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="val">+18%</div><div class="lbl">więcej umówionych wizyt</div></div>
+      <div class="stat"><div class="val">−66%</div><div class="lbl">krótszy czas oddzwonienia</div></div>
+      <div class="stat"><div class="val">8.5/10</div><div class="lbl">średnia jakość rozmów</div></div>
+      <div class="stat"><div class="val">0 zł</div><div class="lbl">dodatkowo za AI</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="s-head">
+    <div class="eyebrow">3 rzeczy, których nie wiesz o swojej rejestracji</div>
+    <h2>Tracisz pacjentów tam, gdzie nawet nie patrzysz.</h2>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="num">1</div>
+      <h3>Nie wiesz, ilu pacjentów odbiło się od ceny</h3>
+      <p>Pacjent dzwoni, pyta o koronkę, słyszy „4&nbsp;200 zł" i znika. Ile takich rozmów dziennie? Twoja rejestracja nie wie. MAIA wie.</p>
+    </div>
+    <div class="problem-card">
+      <div class="num">2</div>
+      <h3>Nie wiesz, jak naprawdę rozmawia Twój zespół</h3>
+      <p>Subiektywne wrażenie kolegi to nie statystyka. MAIA ocenia każdą rozmowę 1-10 wg Twojego standardu — bez emocji, bez politykowania.</p>
+    </div>
+    <div class="problem-card">
+      <div class="num">3</div>
+      <h3>Nie wiesz, ile pacjentów nigdy nie oddzwoniono</h3>
+      <p>Średnia w branży: 25% nieodebranych nie dostaje oddzwonienia. To 1 z 4 pacjentów wprost wyrzuconych z gabinetu. Codziennie.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="s-head">
+    <div class="eyebrow">Co MAIA robi codziennie</div>
+    <h2>Sześć rzeczy, które do tej pory musiałeś robić sam.</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature">
+      <div class="icon">📞</div>
+      <h3>Słucha każdej rozmowy</h3>
+      <p>Integruje się z Ringostat i analizuje każdą rozmowę powyżej 30 sekund.</p>
+      <ul><li>Transkrypcja po polsku</li><li>Czas oczekiwania i rozmowy</li><li>Nagranie do odsłuchu 0.75x–2x</li></ul>
+    </div>
+    <div class="feature">
+      <div class="icon">🎯</div>
+      <h3>Liczy realnie umówione wizyty</h3>
+      <p>Nie szacuje — z transkrypcji wie, czy konkretny termin został ustalony. Bez integracji z kalendarzem.</p>
+      <ul><li>„Wizyta umówiona: 30.05 17:30 u dr Nowak"</li><li>„Nie umówiona — kandydat do oddzwonienia"</li></ul>
+    </div>
+    <div class="feature">
+      <div class="icon">💎</div>
+      <h3>Wykrywa o jakie usługi pytają pacjenci</h3>
+      <p>Implanty, ortodoncja, bonding, korony — klasyfikacja każdej rozmowy + konwersja per usługa.</p>
+      <ul><li>14 kategorii usług stomatologicznych</li><li>Konwersja per usługa</li><li>Dane do budżetu reklamowego</li></ul>
+    </div>
+    <div class="feature">
+      <div class="icon">😊</div>
+      <h3>Mierzy nastrój pacjenta i pracownika</h3>
+      <p>Pacjent zdenerwowany? Recepcjonistka traci cierpliwość? MAIA flaguje natychmiast.</p>
+      <ul><li>Skala 1-5 dla obu stron</li><li>Alert dla supervisora przy &lt;3</li></ul>
+    </div>
+    <div class="feature">
+      <div class="icon">⚠️</div>
+      <h3>Pokazuje co poprawić — i co poszło dobrze</h3>
+      <p>Po każdej rozmowie MAIA mówi „co wyłapała" + „co poszło super" + konkretną radę na jutro.</p>
+      <ul><li>Recepcjonistka widzi to PIERWSZA</li><li>Konkretne rady, nie ogólne oceny</li><li>Doceniany postęp tygodniowy</li></ul>
+    </div>
+    <div class="feature">
+      <div class="icon">📈</div>
+      <h3>Porównuje Cię z innymi klinikami</h3>
+      <p>Plan Premium: anonimowy benchmark z 47 praktyk. „TOP 10% skuteczności" albo „najgorszy czas oddzwonienia".</p>
+      <ul><li>Percentyl per KPI</li><li>Rekomendacje gdzie zyskasz najwięcej</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHT -->
+<section class="insight-bg">
+  <div class="s-head">
+    <div class="eyebrow">Insight marketingowy</div>
+    <h2>Wreszcie wiesz, o jakie usługi <em>naprawdę pytają pacjenci</em>.</h2>
+    <p>MAIA wyciąga z każdej rozmowy konkretną usługę i pokazuje gdzie tracisz najwięcej.</p>
+  </div>
+
+  <div class="insight-grid">
+    <div>
+      <div class="insight-chart">
+        <div class="head">📊 Maj 2026 · Klinika Centrum · 648 rozmów</div>
+        <div class="insight-bar"><span>Higienizacja</span><div class="bar-track"><div style="width:75%"></div></div><b>107 · 55%</b></div>
+        <div class="insight-bar"><span>Próchnica</span><div class="bar-track"><div style="width:70%"></div></div><b>100 · 69%</b></div>
+        <div class="insight-bar highlight"><span style="font-weight:600">Implanty 💎</span><div class="bar-track"><div style="width:60%"></div></div><b style="color:#B45309">86 · 57%</b></div>
+        <div class="insight-bar"><span>Ortodoncja</span><div class="bar-track"><div style="width:50%"></div></div><b>73 · 66%</b></div>
+        <div class="insight-bar"><span>Korona prot.</span><div class="bar-track"><div style="width:36%"></div></div><b>52 · 63%</b></div>
+        <div class="insight-bar"><span>Wybielanie</span><div class="bar-track"><div style="width:33%"></div></div><b>47 · 62%</b></div>
+        <div class="insight-bar"><span>Leczenie kanałowe</span><div class="bar-track"><div style="width:32%"></div></div><b>45 · 73%</b></div>
+        <div class="insight-bar highlight bad"><span style="font-weight:600">Bonding ⚠️</span><div class="bar-track"><div style="width:22%"></div></div><b style="color:#7F1D1D">31 · 58%</b></div>
+        <div class="insight-bar"><span>Licówki</span><div class="bar-track"><div style="width:24%"></div></div><b>34 · 76%</b></div>
+        <div style="margin-top:18px;padding-top:14px;border-top:1px dashed var(--border);font-size:12px;color:var(--fg-subtle)">liczba zapytań · % umówionych po rozmowie</div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:24px;font-weight:700;letter-spacing:-.5px;margin-bottom:20px">Cztery insighty, których dotąd nie miałeś:</h3>
+      <div class="insight-list">
+        <div class="item"><div class="icon-wrap">💎</div><div><b style="display:block;margin-bottom:4px">Implanty: 86 zapytań/mies. ale tylko 57% umówione</b><span style="color:var(--fg-muted);font-size:14px">Ortodoncja ma 66%, leczenie kanałowe 73%. Recepcja gubi pacjentów na drogiej usłudze — przyjrzyj się rozmowom.</span></div></div>
+        <div class="item danger"><div class="icon-wrap">⚠️</div><div><b style="display:block;margin-bottom:4px">Bonding: 31 zapytań, tylko 58% umówione</b><span style="color:var(--fg-muted);font-size:14px">Bonding to szybki, rentowny zabieg. 13 utraconych = ~10 000 zł utraconego przychodu miesięcznie.</span></div></div>
+        <div class="item success"><div class="icon-wrap">📈</div><div><b style="display:block;margin-bottom:4px">Licówki: 76% konwersja</b><span style="color:var(--fg-muted);font-size:14px">Tutaj rejestracja umie sprzedać. Daj inne rozmowy na podsłuch jako materiał szkoleniowy.</span></div></div>
+        <div class="item brand"><div class="icon-wrap">🎯</div><div><b style="display:block;margin-bottom:4px">Decyzja kampanii Google Ads</b><span style="color:var(--fg-muted);font-size:14px">Wiesz, że implantami pyta 86 osób/mies. — robisz kampanię na zimno czy „dopalasz" istniejący ruch?</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="s-head">
+    <div class="eyebrow">Jak to działa</div>
+    <h2>Cztery kroki od zera do działającego systemu.</h2>
+    <p>Pełne wdrożenie — łącznie z konfiguracją AI i szkoleniem zespołu — zajmuje 1 dzień pracy plus 2 dni czekania na Ringostat.</p>
+  </div>
+  <div class="how-steps">
+    <div class="step"><div class="step-num">1</div><h4>Łączymy z Ringostat</h4><p>Auth-key z Twojego panelu Ringostat, webhooki, gotowe w 1h.</p></div>
+    <div class="step"><div class="step-num">2</div><h4>Konfigurujemy standard rozmowy</h4><p>7 kroków, wagi, język polski. AI wie, czego ma słuchać.</p></div>
+    <div class="step"><div class="step-num">3</div><h4>Onboardujemy zespół</h4><p>1h szkolenia: jak MAIA wspiera, czego nie robi.</p></div>
+    <div class="step"><div class="step-num">4</div><h4>Pierwszy raport za tydzień</h4><p>Każdy poniedziałek 8:00 e-mail z syntezą + priorytety.</p></div>
+  </div>
+
+  <div class="demo-block" id="demo">
+    <div class="demo-inner">
+      <div>
+        <h3>Tak wygląda Twój dashboard codziennie.</h3>
+        <p>Jedno spojrzenie. Trzy sekundy. Wiesz co się działo wczoraj w całej rejestracji.</p>
+        <a href="https://app.tamaia.pl/?demo=1" class="btn btn-white">Otwórz pełne demo →</a>
+      </div>
+      <div class="kpi-preview">
+        <div class="row"><span>📞 Telefony</span><span class="val">1 247</span></div>
+        <div class="row"><span>✅ Odebrane</span><span class="val">94,6%</span></div>
+        <div class="row"><span>📵 Nieodebrane</span><span class="val warn">68</span></div>
+        <div class="row"><span>↩️ Oddzwonione</span><span class="val">62 (91%)</span></div>
+        <div class="row"><span>⏱️ Czas oddzwonienia</span><span class="val">11:42</span></div>
+        <div class="row"><span>📅 Umówione wizyty (AI)</span><span class="val">556</span></div>
+        <div class="row"><span>⚠️ Wymagają uwagi</span><span class="val bad">8</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIA -->
+<section class="maia">
+  <div class="s-head">
+    <div class="eyebrow">Poznaj MAIA</div>
+    <h2>Twoja cyfrowa asystentka. Po stronie zespołu.</h2>
+    <p>MAIA to nie nadzorca. To życzliwa koleżanka po fachu, która szepcze recepcjonistce „jutro spróbuj tak" — zanim szef zacznie się czepiać.</p>
+  </div>
+  <div class="maia-content">
+    <div class="maia-quote">
+      „Świetnie zareagowałaś — pacjentka czuła się słuchana. Tylko następnym razem, gdy pyta o cenę, spróbuj od razu zaproponować termin — to często ratuje rozmowę. <b>Robisz świetną robotę.</b>"
+      <div style="margin-top:16px;font-size:14px;color:var(--fg-subtle);font-style:normal">— Tak MAIA mówi po rozmowie do recepcjonistki</div>
+    </div>
+    <div class="maia-list">
+      <div class="item"><span class="ok">✓</span><div><b>Najpierw rejestratorce, potem właścicielowi</b><br><small style="color:var(--fg-muted)">MAIA pokazuje wynik pracownikowi jako pierwszemu. Zawsze.</small></div></div>
+      <div class="item"><span class="ok">✓</span><div><b>Konkretna rada, nigdy ogólna ocena</b><br><small style="color:var(--fg-muted)">„Brak prezentacji ceny" — nie „rozmowa nieudana".</small></div></div>
+      <div class="item"><span class="ok">✓</span><div><b>Docenia postęp, nie tylko obszary do rozwoju</b><br><small style="color:var(--fg-muted)">„+3 wizyty więcej niż w zeszłym tygodniu. Robisz to!"</small></div></div>
+      <div class="item"><span class="no">✗</span><div><b>Nie tworzy rankingu wstydu</b><br><small style="color:var(--fg-muted)">Bez „kto jest najsłabszy". Każdy widzi mocne strony i obszary wsparcia.</small></div></div>
+      <div class="item"><span class="no">✗</span><div><b>Nie raportuje za plecami</b><br><small style="color:var(--fg-muted)">Wszystkie wyniki widoczne dla każdego — bez ukrytych metryk.</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="s-head">
+    <div class="eyebrow">Cennik</div>
+    <h2>Płacisz tylko za to, co naprawdę używasz.</h2>
+    <p>Wszystko bez ukrytych kosztów. AI w cenie. Nagrania w Ringostat (zero serwerów u Ciebie).</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3>Standard</h3>
+      <p style="color:var(--fg-muted)">Dla 1 kliniki, pełna funkcjonalność operacyjna</p>
+      <div class="price">149&nbsp;<span>PLN / mies.</span></div>
+      <ul>
+        <li>Wszystkie KPI (telefony, odebrane, umówione)</li>
+        <li>Pełna integracja z Ringostat</li>
+        <li>MAIA na każdej rozmowie</li>
+        <li>Dashboard dla 5 ról</li>
+        <li>Cotygodniowy raport PDF</li>
+        <li>Eksport XLSX i PDF</li>
+        <li>RODO compliant, dane w EU</li>
+      </ul>
+      <a href="https://app.tamaia.pl/signup?plan=standard" class="btn btn-ghost">Zacznij 14 dni gratis</a>
+    </div>
+    <div class="price-card featured">
+      <div class="ribbon">⭐ Polecane</div>
+      <h3>Premium</h3>
+      <p style="color:var(--fg-muted)">Standard + porównanie z siecią klinik</p>
+      <div class="price">199&nbsp;<span>PLN / mies.</span></div>
+      <ul>
+        <li><b>Wszystko z planu Standard</b></li>
+        <li><b>Benchmarki sieciowe</b> z 47 klinik</li>
+        <li><b>Percentyl per KPI</b> — czy jesteś TOP 10%</li>
+        <li><b>Alerty „spadek poniżej średniej"</b></li>
+        <li><b>Raport benchmarkowy</b> miesięcznie</li>
+        <li><b>Rekomendacje gap analysis</b></li>
+        <li><b>Wsparcie priorytetowe</b> w 4h</li>
+      </ul>
+      <a href="https://app.tamaia.pl/signup?plan=premium" class="btn btn-primary">Zacznij z Premium</a>
+    </div>
+  </div>
+  <p style="text-align:center;color:var(--fg-subtle);margin-top:32px;font-size:14px">Sieć &gt; 5 klinik — kontakt indywidualny · 14 dni gratis · bez umowy lojalnościowej</p>
+</section>
+
+<!-- CTA FINAL -->
+<section>
+  <div class="cta-final" id="kontakt">
+    <h2>30 minut rozmowy. Konkretne liczby z Twojej kliniki w 14 dni.</h2>
+    <p>Pokażemy Ci, ile pacjentów dziś tracisz i jak MAIA to zmieni. Bez prezentacji, bez slajdów. Otwarte demo na Twoich danych.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="mailto:hello@tamaia.pl" class="btn btn-white">📧 Napisz do nas</a>
+      <a href="https://app.tamaia.pl/?demo=1" class="btn btn-ghost" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#FFF">📺 Otwórz demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div class="logo-mark" style="width:32px;height:32px;font-size:16px">T</div>
+        <div style="color:#FFF;font-weight:700">TAMAIA</div>
+      </div>
+      <p style="font-size:14px;max-width:280px">Inteligentny system kontroli jakości rozmów rejestracji stomatologicznej. Polski. RODO. EU.</p>
+    </div>
+    <div>
+      <h4>Produkt</h4>
+      <ul>
+        <li><a href="#features">Funkcje</a></li>
+        <li><a href="#how">Jak działa</a></li>
+        <li><a href="#pricing">Cennik</a></li>
+        <li><a href="https://app.tamaia.pl/?demo=1">Demo</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Firma</h4>
+      <ul>
+        <li><a href="mailto:hello@tamaia.pl">Kontakt</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/o-nas">O nas</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Prawne</h4>
+      <ul>
+        <li><a href="/privacy">Polityka prywatności</a></li>
+        <li><a href="/terms">Regulamin</a></li>
+        <li><a href="/rodo">RODO</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TAMAIA. Wszelkie prawa zastrzeżone.</span>
+    <span>hello@tamaia.pl</span>
+  </div>
+</footer>
+
+</body>
+</html>
