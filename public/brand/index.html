@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TAMAIA logo PNG SVG</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; background:#fffdf7; color:#071D49; margin:40px; }
+    .card { border:1px solid #eadfca; border-radius:24px; padding:28px; margin:0 0 28px; background:white; box-shadow:0 12px 40px rgba(7,29,73,.08); }
+    img { width:100%; max-width:980px; height:auto; display:block; margin: 12px 0 20px; }
+    a, button { display:inline-block; margin:6px 8px 6px 0; padding:12px 18px; border-radius:999px; border:0; background:#071D49; color:#fff; text-decoration:none; font-weight:700; cursor:pointer; }
+    .gold { background:#C9A24A; }
+    p { line-height:1.5; }
+  </style>
+</head>
+<body>
+  <h1>TAMAIA — logo PNG i SVG</h1>
+  <p>Pliki SVG sa w repo. Przyciski PNG renderuja logo w przegladarce i pobieraja je jako obraz PNG.</p>
+
+  <div class="card">
+    <h2>TAMAIA z podpisem</h2>
+    <img id="logo-subtitle" src="./tamaia_podpis.svg" alt="TAMAIA z podpisem Doskonala Rejestracja" />
+    <a href="./tamaia_podpis.svg" download>pobierz SVG</a>
+    <button class="gold" onclick="downloadPng('./tamaia_podpis.svg','tamaia_podpis.png',1600,520)">pobierz PNG</button>
+  </div>
+
+  <div class="card">
+    <h2>TAMAIA bez podpisu</h2>
+    <img id="logo-short" src="./tamaia_bez_podpisu.svg" alt="TAMAIA bez podpisu" />
+    <a href="./tamaia_bez_podpisu.svg" download>pobierz SVG</a>
+    <button class="gold" onclick="downloadPng('./tamaia_bez_podpisu.svg','tamaia_bez_podpisu.png',1600,420)">pobierz PNG</button>
+  </div>
+
+  <script>
+    async function downloadPng(svgUrl, fileName, width, height) {
+      const svgText = await fetch(svgUrl).then(r => r.text());
+      const svgBlob = new Blob([svgText], {type:'image/svg+xml;charset=utf-8'});
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#FFFDF7';
+        ctx.fillRect(0,0,width,height);
+        ctx.drawImage(img,0,0,width,height);
+        URL.revokeObjectURL(url);
+        const png = canvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.href = png;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      };
+      img.src = url;
+    }
+  </script>
+</body>
+</html>
