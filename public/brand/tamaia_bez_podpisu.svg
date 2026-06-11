@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420" viewBox="0 0 1600 420">
+<rect width="1600" height="420" fill="#FFFDF7"/>
+<g transform="translate(115 86) scale(0.95)">
+<path d="M130 25 C165 -20 250 5 250 82 C250 160 164 218 130 250 C96 218 10 160 10 82 C10 5 95 -20 130 25 Z" fill="none" stroke="#C9A24A" stroke-width="22" stroke-linejoin="round"/>
+<path d="M130 62 C150 32 205 48 205 91 C205 133 156 167 130 190 C104 167 55 133 55 91 C55 48 110 32 130 62 Z" fill="none" stroke="#C9A24A" stroke-width="16" stroke-linejoin="round"/>
+<path d="M82 222 L178 222" stroke="#C9A24A" stroke-width="14" stroke-linecap="round"/>
+</g>
+<g transform="translate(390 88)">
+<text x="0" y="145" font-family="Arial, Helvetica, sans-serif" font-size="154" font-weight="700" letter-spacing="4" fill="#071D49">TA</text>
+<text x="225" y="145" font-family="Arial, Helvetica, sans-serif" font-size="154" font-weight="700" letter-spacing="4" fill="#C9A24A">MAIA</text>
+<path d="M90 115 C109 132 139 132 158 115" fill="none" stroke="#C9A24A" stroke-width="9" stroke-linecap="round"/>
+<path d="M420 115 C439 132 469 132 488 115" fill="none" stroke="#071D49" stroke-width="9" stroke-linecap="round"/>
+<path d="M729 115 C748 132 778 132 797 115" fill="none" stroke="#071D49" stroke-width="9" stroke-linecap="round"/>
+</g>
+</svg>
